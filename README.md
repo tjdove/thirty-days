@@ -1,205 +1,143 @@
-# Foundry Template [![Open in Gitpod][gitpod-badge]][gitpod] [![Github Actions][gha-badge]][gha] [![Foundry][foundry-badge]][foundry] [![License: MIT][license-badge]][license]
-
-[gitpod]: https://gitpod.io/#https://github.com/tjdove/thirty-days
-[gitpod-badge]: https://img.shields.io/badge/Gitpod-Open%20in%20Gitpod-FFB45B?logo=gitpod
-[gha]: https://github.com/tjdove/thirty-days/actions
-[gha-badge]: https://github.com/tjdove/thirty-days/actions/workflows/ci.yml/badge.svg
-[foundry]: https://getfoundry.sh/
-[foundry-badge]: https://img.shields.io/badge/Built%20with-Foundry-FFDB1C.svg
-[license]: https://opensource.org/licenses/MIT
-[license-badge]: https://img.shields.io/badge/License-MIT-blue.svg
-
-A Foundry-based template for developing Solidity smart contracts, with sensible defaults.
-
-## What's Inside
-
-- [Forge](https://github.com/foundry-rs/foundry/blob/master/forge): compile, test, fuzz, format, and deploy smart
-  contracts
-- [Bun]: Foundry defaults to git submodules, but this template uses Node.js packages for managing dependencies
-- [Forge Std](https://github.com/foundry-rs/forge-std): collection of helpful contracts and utilities for testing
-- [Prettier](https://github.com/prettier/prettier): code formatter for non-Solidity files
-- [Solhint](https://github.com/protofire/solhint): linter for Solidity code
-
-## Getting Started
-
-Click the [`Use this template`](https://github.com/PaulRBerg/foundry-template/generate) button at the top of the page to
-create a new repository with this repo as the initial state.
-
-Or, if you prefer to install the template manually:
-
-```sh
-$ forge init --template PaulRBerg/foundry-template my-project
-$ cd my-project
-$ bun install # install Solhint, Prettier, and other Node.js deps
-```
-
-If this is your first time with Foundry, check out the
-[installation](https://github.com/foundry-rs/foundry#installation) instructions.
-
-## Features
-
-This template builds upon the frameworks and libraries mentioned above, so please consult their respective documentation
-for details about their specific features.
-
-For example, if you're interested in exploring Foundry in more detail, you should look at the
-[Foundry Book](https://book.getfoundry.sh). In particular, you may be interested in reading the
-[Writing Tests](https://book.getfoundry.sh/forge/writing-tests.html) tutorial.
-
-### Sensible Defaults
-
-This template comes with a set of sensible default configurations for you to use. These defaults can be found in the
-following files:
-
-```text
-├── .editorconfig
-├── .gitignore
-├── .prettierignore
-├── .prettierrc.yml
-├── .solhint.json
-├── foundry.toml
-└── remappings.txt
-```
-
-### VSCode Integration
-
-This template is IDE agnostic, but for the best user experience, you may want to use it in VSCode alongside Nomic
-Foundation's [Solidity extension](https://marketplace.visualstudio.com/items?itemName=NomicFoundation.hardhat-solidity).
-
-For guidance on how to integrate a Foundry project in VSCode, please refer to this
-[guide](https://book.getfoundry.sh/config/vscode).
-
-### GitHub Actions
-
-This template comes with GitHub Actions pre-configured. Your contracts will be linted and tested on every push and pull
-request made to the `main` branch.
-
-You can edit the CI script in [.github/workflows/ci.yml](./.github/workflows/ci.yml).
-
-## Installing Dependencies
-
-Foundry typically uses git submodules to manage dependencies, but this template uses Node.js packages because
-[submodules don't scale](https://twitter.com/PaulRBerg/status/1736695487057531328).
-
-This is how to install dependencies:
-
-1. Install the dependency using your preferred package manager, e.g. `bun install dependency-name`
-   - Use this syntax to install from GitHub: `bun install github:username/repo-name`
-2. Add a remapping for the dependency in [remappings.txt](./remappings.txt), e.g.
-   `dependency-name=node_modules/dependency-name`
-
-Note that OpenZeppelin Contracts is pre-installed, so you can follow that as an example.
-
-## Writing Tests
-
-To write a new test contract, you start by importing `Test` from `forge-std`, and then you inherit it in your test
-contract. Forge Std comes with a pre-instantiated [cheatcodes](https://book.getfoundry.sh/cheatcodes/) environment
-accessible via the `vm` property. If you would like to view the logs in the terminal output, you can add the `-vvv` flag
-and use [console.log](https://book.getfoundry.sh/faq?highlight=console.log#how-do-i-use-consolelog).
-
-This template comes with an example test contract [Foo.t.sol](./tests/Foo.t.sol)
-
-## Usage
-
-This is a list of the most frequently needed commands.
-
-### Build
-
-Build the contracts:
-
-```sh
-$ forge build
-```
-
-### Clean
-
-Delete the build artifacts and cache directories:
-
-```sh
-$ forge clean
-```
-
-### Compile
-
-Compile the contracts:
-
-```sh
-$ forge build
-```
-
-### Coverage
-
-Get a test coverage report:
-
-```sh
-$ forge coverage
-```
-
-### Deploy
-
-Deploy to Anvil:
-
-```sh
-$ forge script script/Deploy.s.sol --broadcast --fork-url http://localhost:8545
-```
-
-For this script to work, you need to have a `MNEMONIC` environment variable set to a valid
-[BIP39 mnemonic](https://iancoleman.io/bip39/).
-
-For instructions on how to deploy to a testnet or mainnet, check out the
-[Solidity Scripting](https://book.getfoundry.sh/tutorials/solidity-scripting.html) tutorial.
-
-### Format
-
-Format the contracts:
-
-```sh
-$ forge fmt
-```
-
-### Gas Usage
-
-Get a gas report:
-
-```sh
-$ forge test --gas-report
-```
-
-### Lint
-
-Lint the contracts:
-
-```sh
-$ bun run lint
-```
-
-### Test
-
-Run the tests:
-
-```sh
-$ forge test
-```
-
-Generate test coverage and output result to the terminal:
-
-```sh
-$ bun run test:coverage
-```
-
-Generate test coverage with lcov report (you'll have to open the `./coverage/index.html` file in your browser, to do so
-simply copy paste the path):
-
-```sh
-$ bun run test:coverage:report
-```
-
-## Related Efforts
-
-- [foundry-rs/forge-template](https://github.com/foundry-rs/forge-template)
-- [abigger87/femplate](https://github.com/abigger87/femplate)
-- [cleanunicorn/ethereum-smartcontract-template](https://github.com/cleanunicorn/ethereum-smartcontract-template)
-- [FrankieIsLost/forge-template](https://github.com/FrankieIsLost/forge-template)
-
-## License
-
-This project is licensed under MIT.
+#Solidity #crypto #DeFi 
+
+Learning to write Solidity contracts using Uniswap v3/v4 protocols is an excellent way to dive into decentralized finance (DeFi) development. Below is a structured 30-day plan to help you write 30 Solidity contracts, gradually increasing in complexity. Each day, you'll focus on a specific concept or feature, building on what you've learned previously.
+
+---
+
+### **Week 1: Foundations of Solidity and Uniswap**
+
+**Goal:** Learn the basics of Solidity and understand Uniswap's core concepts.
+
+1. **Day 1:** Hello World Contract - Feb 5 Still not done yet
+    - Write a simple Solidity contract that stores and retrieves a string message.
+    - forge script script/Deploy.s.sol --broadcast --fork-url http://localhost:8545 - 0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9
+    - Working call cast and decode string:
+cast call 0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9 "getMessage() (string)" --rpc-url http://127.0.0.1:
+8545
+- cast send 0x5FbDB2315678afecb367f032d93F642f64180aa3 "setMessage(string)" "Your message here" --rpc-url http://localhost:8545 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
+
+cast call 0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9 "balanceOf(address"   0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80" --rpc-url http://127.0.0.1:8545
+
+balanceOf(address account) public override returns (uint256)
+
+
+[[Contract Call Breakdown]]
+
+2. **Day 2:** Basic Token Contract (ERC-20) - Feb 6
+    - Create an ERC-20 token with basic functions like `transfer`, `balanceOf`, and `approve`.
+    - 
+    
+3. **Day 3:** [[Uniswap V3 Pool Interaction]] - Feb 7
+    - Write a contract that interacts with a Uniswap V3 pool to get the pool's address and fee tier.
+        
+4. **Day 4:** Liquidity Provider (LP) Token - Feb 8
+    - Create a contract that mints and burns LP tokens for a Uniswap V3 pool.
+        
+5. **Day 5:** Price Oracle
+    - Write a contract that uses Uniswap V3 as a price oracle to fetch the price of a token pair.
+        
+6. **Day 6:** Swap Tokens on Uniswap V3
+    - Create a contract that swaps tokens using Uniswap V3's `exactInputSingle` function.
+        
+7. **Day 7:** Multi-Hop Swap
+    - Write a contract that performs a multi-hop swap (e.g., ETH → USDC → DAI) using Uniswap V3.
+        
+
+---
+### **Week 2: Intermediate Concepts**
+**Goal:** Dive deeper into Uniswap V3 features and advanced Solidity concepts.
+
+8. **Day 8:** Concentrated Liquidity
+    - Write a contract that adds concentrated liquidity to a Uniswap V3 pool within a specific price range.
+        
+9. **Day 9:** Remove Liquidity
+    - Create a contract that removes liquidity from a Uniswap V3 pool and returns the tokens to the user.
+        
+10. **Day 10:** Fee Calculation
+    - Write a contract that calculates and collects fees earned from providing liquidity on Uniswap V3.
+        
+11. **Day 11:** Non-Fungible Liquidity Positions (NFTs)
+    - Create a contract that mints an NFT representing a Uniswap V3 liquidity position.
+        
+12. **Day 12:** Staking LP Tokens
+    - Write a contract that allows users to stake their Uniswap V3 LP tokens and earn rewards.
+        
+13. **Day 13:** Flash Loans
+    - Create a contract that implements a flash loan using Uniswap V3.
+        
+14. **Day 14:** Custom Fee Tier
+    - Write a contract that creates a Uniswap V3 pool with a custom fee tier.
+        
+
+---
+
+### **Week 3: Advanced Uniswap V3 Features**
+
+**Goal:** Explore advanced Uniswap V3 features and integrate them into your contracts.
+
+15. **Day 15:** Limit Orders
+    - Write a contract that implements limit orders using Uniswap V3's concentrated liquidity.
+        
+16. **Day 16:** TWAP (Time-Weighted Average Price)
+    - Create a contract that calculates and uses TWAP from Uniswap V3 for price feeds.
+        
+17. **Day 17:** Multi-Pool Interaction
+    - Write a contract that interacts with multiple Uniswap V3 pools to find the best swap route.
+        
+18. **Day 18:** Gas Optimization
+    - Optimize one of your previous contracts for gas efficiency.
+        
+19. **Day 19:** Custom Swap Logic
+    - Write a contract that implements custom swap logic (e.g., partial swaps or conditional swaps).
+        
+20. **Day 20:** Liquidity Migration
+    - Create a contract that migrates liquidity from Uniswap V2 to Uniswap V3.
+        
+21. **Day 21:** Dynamic Fee Adjustment
+    - Write a contract that dynamically adjusts the fee tier of a Uniswap V3 pool based on market conditions.
+        
+
+---
+
+### **Week 4: Uniswap V4 and Integration**
+
+**Goal:** Transition to Uniswap V4 and integrate your contracts with real-world use cases.
+
+22. **Day 22:** Uniswap V4 Hook Basics
+    - Write a contract that implements a basic Uniswap V4 hook (e.g., pre-swap or post-swap logic).
+        
+23. **Day 23:** Custom Pool Creation (V4)
+    - Create a contract that deploys a new Uniswap V4 pool with custom parameters.
+        
+24. **Day 24:** Advanced Hooks
+    - Write a contract that implements advanced hooks, such as fee redistribution or liquidity locking.
+        
+25. **Day 25:** Integration with DeFi Protocols
+    - Integrate one of your contracts with another DeFi protocol (e.g., Aave or Compound).
+        
+26. **Day 26:** Frontend Interaction
+    - Write a contract that interacts with a frontend (e.g., using Ethers.js or Web3.js).
+        
+27. **Day 27:** Security Audit Basics
+    - Perform a basic security audit on one of your contracts and fix any vulnerabilities.
+        
+28. **Day 28:** Gasless Transactions
+    - Write a contract that supports gasless transactions using meta-transactions or relayers.
+        
+29. **Day 29:** Full DeFi Application
+    - Combine multiple contracts into a full DeFi application (e.g., a yield aggregator).
+        
+30. **Day 30:** Final Project
+    - Build and deploy a complete project using Uniswap V3/V4 (e.g., a decentralized exchange or liquidity manager).
+        
+
+---
+
+### **Tips for Success**
+
+- **Documentation:** Refer to the [Uniswap V3 Documentation](https://docs.uniswap.org/) and [Uniswap V4 Draft Documentation](https://github.com/Uniswap/v4-core) regularly.
+- **Testing:** Use tools like Hardhat or Foundry to test your contracts thoroughly.
+- **Community:** Join Uniswap's Discord or forums to ask questions and share your progress.
+- **Version Control:** Use Git to track your progress and revert changes if needed.
+
+By the end of this 30-day plan, you'll have a solid understanding of Solidity, Uniswap V3/V4, and DeFi development. Good luck! 🚀
