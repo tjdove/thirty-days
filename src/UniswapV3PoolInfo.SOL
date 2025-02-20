@@ -1,0 +1,41 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
+pragma solidity ^0.8.0;
+
+import "@uniswap/v3-core/contracts/interfaces/IUniswapV3Factory.sol";
+import "@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
+import "@uniswap/v3-periphery/contracts/libraries/PoolAddress.sol";
+
+contract UniswapV3PoolInfo {
+    // Address of the Uniswap V3 Factory contract
+    address public immutable uniswapV3Factory;
+
+    // Constructor to set the Uniswap V3 Factory address
+    constructor(address _uniswapV3Factory) {
+        uniswapV3Factory = _uniswapV3Factory;
+    }
+
+    // Function to get the pool address and fee tier
+    function getPoolInfo(
+        address tokenA,
+        address tokenB,
+        uint24 fee
+    ) external view returns (address poolAddress, uint24 poolFee) {
+        // Sort the tokens to ensure consistency
+        (address token0, address token1) = tokenA < tokenB ? (tokenA, tokenB) : (tokenB, tokenA);
+
+        // Compute the pool address using the PoolAddress library
+        poolAddress = PoolAddress.computeAddress(
+            uniswapV3Factory,
+            PoolAddress.getPoolKey(token0, token1, fee)
+        );
+
+        // Get the pool instance
+        IUniswapV3Pool pool = IUniswapV3Pool(poolAddress);
+
+        // Ensure the pool exists
+        require(pool.liquidity() > 0, "Pool does not exist");
+
+        // Return the pool address and fee tier
+        return (poolAddress, fee);
+    }
+}
